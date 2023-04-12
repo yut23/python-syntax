@@ -98,6 +98,13 @@ if s:Python2Syntax()
     syn keyword pythonImport      as
     syn match   pythonFunction    '[a-zA-Z_][a-zA-Z0-9_]*' display contained
 else
+    " Soft keywords
+    " These keywords do not mean anything unless used in the right context
+    " See https://docs.python.org/3/reference/lexical_analysis.html#soft-keywords 
+    " for more on this.
+    syn match   pythonConditional   "^\s*\zscase\%(\s\+.*:.*$\)\@="
+    syn match   pythonConditional   "^\s*\zsmatch\%(\s\+.*:\s*\%(#.*\)\=$\)\@="
+
     syn keyword pythonStatement   as nonlocal
     syn match   pythonStatement   '\v\.@<!<await>'
     syn match   pythonFunction    '\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*' display contained
